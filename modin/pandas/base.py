@@ -53,6 +53,7 @@ from modin.utils import try_cast_to_pandas, _inherit_docstrings
 from modin.error_message import ErrorMessage
 from modin.pandas.utils import is_scalar
 from modin.config import IsExperimental
+from modin.logging import LoggerMetaClass
 
 # Similar to pandas, sentinel value to use as kwarg in place of None when None has
 # special meaning and needs to be distinguished from a user explicitly passing None.
@@ -96,7 +97,7 @@ _DEFAULT_BEHAVIOUR = {
 
 
 @_inherit_docstrings(pandas.DataFrame, apilink="pandas.DataFrame")
-class BasePandasDataset(object):
+class BasePandasDataset(object, metaclass=LoggerMetaClass):
     """
     Implement most of the common code that exists in DataFrame/Series.
 

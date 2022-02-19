@@ -30,6 +30,7 @@ from pandas._typing import CompressionOptions, StorageOptions
 from typing import Union, IO, AnyStr, Sequence, Dict, List, Optional, Any
 
 from modin.error_message import ErrorMessage
+from modin.logging import logger_decorator
 from .dataframe import DataFrame
 from modin.utils import _inherit_docstrings, Engine
 from . import _update_engine
@@ -71,6 +72,7 @@ def _read(**kwargs):
     return result
 
 
+@logger_decorator("PANDAS-API", "read_csv", "info")
 @_inherit_docstrings(pandas.read_csv)
 def read_csv(
     filepath_or_buffer: "FilePath | ReadCsvBuffer[bytes] | ReadCsvBuffer[str]",
@@ -135,6 +137,7 @@ def read_csv(
     return _read(**kwargs)
 
 
+@logger_decorator("PANDAS-API", "read_table", "info")
 @_inherit_docstrings(pandas.read_table)
 def read_table(
     filepath_or_buffer: "FilePath | ReadCsvBuffer[bytes] | ReadCsvBuffer[str]",
@@ -201,6 +204,7 @@ def read_table(
     return _read(**kwargs)
 
 
+@logger_decorator("PANDAS-API", "read_parquet", "info")
 @_inherit_docstrings(pandas.read_parquet)
 def read_parquet(
     path,
@@ -225,6 +229,7 @@ def read_parquet(
     )
 
 
+@logger_decorator("PANDAS-API", "read_json", "info")
 @_inherit_docstrings(pandas.read_json)
 def read_json(
     path_or_buf=None,
@@ -253,6 +258,7 @@ def read_json(
     return DataFrame(query_compiler=FactoryDispatcher.read_json(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_gbq", "info")
 @_inherit_docstrings(pandas.read_gbq)
 def read_gbq(
     query: str,
@@ -278,6 +284,7 @@ def read_gbq(
     return DataFrame(query_compiler=FactoryDispatcher.read_gbq(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_html", "info")
 @_inherit_docstrings(pandas.read_html)
 def read_html(
     io,
@@ -304,6 +311,7 @@ def read_html(
     return DataFrame(query_compiler=FactoryDispatcher.read_html(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_clipboard", "info")
 @_inherit_docstrings(pandas.read_clipboard)
 def read_clipboard(sep=r"\s+", **kwargs):  # pragma: no cover
     _, _, _, kwargs = inspect.getargvalues(inspect.currentframe())
@@ -315,6 +323,7 @@ def read_clipboard(sep=r"\s+", **kwargs):  # pragma: no cover
     return DataFrame(query_compiler=FactoryDispatcher.read_clipboard(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_excel", "info")
 @_inherit_docstrings(pandas.read_excel)
 def read_excel(
     io,
@@ -360,6 +369,7 @@ def read_excel(
         return DataFrame(query_compiler=intermediate)
 
 
+@logger_decorator("PANDAS-API", "read_hdf", "info")
 @_inherit_docstrings(pandas.read_hdf)
 def read_hdf(
     path_or_buf,
@@ -383,6 +393,7 @@ def read_hdf(
     return DataFrame(query_compiler=FactoryDispatcher.read_hdf(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_feather", "info")
 @_inherit_docstrings(pandas.read_feather)
 def read_feather(
     path,
@@ -398,6 +409,7 @@ def read_feather(
     return DataFrame(query_compiler=FactoryDispatcher.read_feather(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_stata", "info")
 @_inherit_docstrings(pandas.read_stata)
 def read_stata(
     filepath_or_buffer,
@@ -421,6 +433,7 @@ def read_stata(
     return DataFrame(query_compiler=FactoryDispatcher.read_stata(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_sas", "info")
 @_inherit_docstrings(pandas.read_sas)
 def read_sas(
     filepath_or_buffer,
@@ -438,6 +451,7 @@ def read_sas(
     return DataFrame(query_compiler=FactoryDispatcher.read_sas(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_pickle", "info")
 @_inherit_docstrings(pandas.read_pickle)
 def read_pickle(
     filepath_or_buffer,
@@ -452,6 +466,7 @@ def read_pickle(
     return DataFrame(query_compiler=FactoryDispatcher.read_pickle(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_sql", "info")
 @_inherit_docstrings(pandas.read_sql)
 def read_sql(
     sql,
@@ -477,6 +492,7 @@ def read_sql(
     return DataFrame(query_compiler=FactoryDispatcher.read_sql(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_fwf", "info")
 @_inherit_docstrings(pandas.read_fwf)
 def read_fwf(
     filepath_or_buffer: Union[str, pathlib.Path, IO[AnyStr]],
@@ -504,6 +520,7 @@ def read_fwf(
     return DataFrame(query_compiler=pd_obj)
 
 
+@logger_decorator("PANDAS-API", "read_sql_table", "info")
 @_inherit_docstrings(pandas.read_sql_table)
 def read_sql_table(
     table_name,
@@ -523,6 +540,7 @@ def read_sql_table(
     return DataFrame(query_compiler=FactoryDispatcher.read_sql_table(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_sql_query", "info")
 @_inherit_docstrings(pandas.read_sql_query)
 def read_sql_query(
     sql,
@@ -542,6 +560,7 @@ def read_sql_query(
     return DataFrame(query_compiler=FactoryDispatcher.read_sql_query(**kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_spss", "info")
 @_inherit_docstrings(pandas.read_spss)
 def read_spss(
     path: Union[str, pathlib.Path],
@@ -556,6 +575,7 @@ def read_spss(
     )
 
 
+@logger_decorator("PANDAS-API", "read_to_pickle", "info")
 @_inherit_docstrings(pandas.to_pickle)
 def to_pickle(
     obj: Any,
@@ -578,6 +598,7 @@ def to_pickle(
     )
 
 
+@logger_decorator("PANDAS-API", "read_json_normalize", "info")
 @_inherit_docstrings(pandas.json_normalize)
 def json_normalize(
     data: Union[Dict, List[Dict]],
@@ -598,6 +619,7 @@ def json_normalize(
     )
 
 
+@logger_decorator("PANDAS-API", "read_orc", "info")
 @_inherit_docstrings(pandas.read_orc)
 def read_orc(path, columns: Optional[List[str]] = None, **kwargs) -> DataFrame:
     ErrorMessage.default_to_pandas("read_orc")
@@ -605,6 +627,7 @@ def read_orc(path, columns: Optional[List[str]] = None, **kwargs) -> DataFrame:
     return DataFrame(pandas.read_orc(path, columns, **kwargs))
 
 
+@logger_decorator("PANDAS-API", "read_orc", "info")
 @_inherit_docstrings(pandas.read_xml)
 def read_xml(
     path_or_buffer,
